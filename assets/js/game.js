@@ -20,6 +20,8 @@ let  score = 0;
 
 function renderQuiz(){
     $(".endscreen").hide();
+    $(".startscreen").hide()
+    $(".quiz").show();
     for (let i = 0; i < questions.length; i++) {
 
         let question = $("<form>");
@@ -62,26 +64,48 @@ function renderQuiz(){
 function initialize(){
     $(".quiz").hide();
     $(".startscreen").show();
+    $("#startButton").on("click",function(){
+        renderQuiz();
+        setTimeout(check, 5 * 1000);
+    });
 }
 
-$("#subButton").on("click", function(event){
-    event.preventDefault();
-   let userAnswer =  $(".answerRadio:checked");
-
-   for(let k = 0; k < userAnswer.length;k++){
-    let userTrue = userAnswer[k].attributes.correct;
-    if(userTrue){
-        score++;
+function check(){
+   
+    let userAnswer =  $(".answerRadio:checked");
+ 
+    for(let k = 0; k < userAnswer.length;k++){
+     let userTrue = userAnswer[k].attributes.correct;
+     if(userTrue){
+         score++;
+     }
     }
-   }
-   $(".quiz").hide();
-   $(".endscreen").show();
+    $(".quiz").hide();
+    $(".endscreen").show();
+ 
+    $(".score").text("You got " +  score + " Correct");
+ 
+    console.log(score);
+}
 
-   $(".score").text("You got " +  score + " Correct");
+// $("#subButton").on("click", function(event){
+//     event.preventDefault();
+//    let userAnswer =  $(".answerRadio:checked");
 
-   console.log(score);
-});
+//    for(let k = 0; k < userAnswer.length;k++){
+//     let userTrue = userAnswer[k].attributes.correct;
+//     if(userTrue){
+//         score++;
+//     }
+//    }
+//    $(".quiz").hide();
+//    $(".endscreen").show();
+
+//    $(".score").text("You got " +  score + " Correct");
+
+//    console.log(score);
+// });
+
+initialize();
 
 
-
-renderQuiz();
