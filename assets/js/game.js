@@ -64,14 +64,25 @@ function renderQuiz(){
 function initialize(){
     $(".quiz").hide();
     $(".startscreen").show();
+    $("#timer_div").hide();
     $("#startButton").on("click",function(){
+        $("#timer_div").show();
         renderQuiz();
-        setTimeout(check, 5 * 1000);
+        let seconds_left = 10;
+        let interval = setInterval(function() {
+        $('#timer_div').text(--seconds_left);
+        if (seconds_left <= 0){
+        check();
+        clearInterval(interval);
+        $("#timer_div").hide();
+        $()
+        }
+}, 1000);
+      
     });
 }
 
-function check(){
-   
+function check(){ 
     let userAnswer =  $(".answerRadio:checked");
  
     for(let k = 0; k < userAnswer.length;k++){
@@ -88,23 +99,7 @@ function check(){
     console.log(score);
 }
 
-// $("#subButton").on("click", function(event){
-//     event.preventDefault();
-//    let userAnswer =  $(".answerRadio:checked");
 
-//    for(let k = 0; k < userAnswer.length;k++){
-//     let userTrue = userAnswer[k].attributes.correct;
-//     if(userTrue){
-//         score++;
-//     }
-//    }
-//    $(".quiz").hide();
-//    $(".endscreen").show();
-
-//    $(".score").text("You got " +  score + " Correct");
-
-//    console.log(score);
-// });
 
 initialize();
 
